@@ -49,7 +49,7 @@ fangraphs %>%
   xgb.DMatrix(label = fangraphs$ERA[-train_indexes]) ->
   test_data
 
-#Finds rounds
+# Tuning Parameters
 find_rounds <- function(rounds) {
   xgb.train(
     params = list(
@@ -69,7 +69,6 @@ find_rounds <- function(rounds) {
 optimize(find_rounds, c(1, 20), tol = 2)$minimum %>% 
   ceiling() -> rounds
 
-#Tuning Parameters
 tune_params <- function(param) {
   xgb.train(
     params = list(
