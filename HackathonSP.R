@@ -175,6 +175,5 @@ fangraphs_rp_ID <- fangraphs_rp_ID %>%
   select(c(MLBAMID, Name, ERA, Season))
 predicted_RP_ERA <- data.frame(Name = fangraphs_rp_ID$Name, Season = fangraphs_rp_ID$Season, ID = fangraphs_rp_ID$MLBAMID, RP_ERA = fangraphs_rp_ID$ERA, predicted_ERA = predictions)
 predicted_RP_ERA <- predicted_RP_ERA %>%
-  filter(predicted_ERA < RP_ERA) %>%
-  mutate(ERA_dif = ((RP_ERA - predicted_ERA)/RP_ERA)*100)  
+  mutate(ERA_dif = ((RP_ERA - predicted_ERA)/RP_ERA))  
 write_xlsx(predicted_RP_ERA, path = "/Users/rafeburns/Documents/predicted_RP_ERA.xlsx")
