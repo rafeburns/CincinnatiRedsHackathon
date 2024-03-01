@@ -61,7 +61,8 @@ fangraphs %>%
   as.matrix() %>% 
   xgb.DMatrix(label = fangraphs$ERA[-train_indexes]) ->
   test_data
-#Finds rounds
+
+# Tuning Parameters
 find_rounds <- function(rounds) {
   xgb.train(
     params = list(
@@ -81,7 +82,6 @@ find_rounds <- function(rounds) {
 optimize(find_rounds, c(1, 20), tol = 2)$minimum %>% 
   ceiling() -> rounds
 
-#Tuning Parameters
 tune_params <- function(param) {
   xgb.train(
     params = list(
@@ -198,6 +198,5 @@ fangraphs_sp_ID <- fangraphs_sp_ID %>%
   select(c(MLBAMID, Name, ERA, Season))
 predicted_SP_ERA <- data.frame(Name = fangraphs_sp_ID$Name, Season = fangraphs_sp_ID$Season, ID = fangraphs_sp_ID$MLBAMID, SP_ERA = fangraphs_sp_ID$ERA, predicted_ERA = predictions)
 predicted_SP_ERA <- predicted_SP_ERA %>%
-  filter(predicted_ERA < SP_ERA) %>%
-  mutate(ERA_dif = SP_ERA - predicted_ERA)  
+  mutate(ERA_dif = ((SP_ERA - predicted_ERA)/SP_ERA))  
 write_xlsx(predicted_SP_ERA, path = "/Users/rafeburns/Documents/predicted_SP_ERA.xlsx")
