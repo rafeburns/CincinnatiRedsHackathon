@@ -17,3 +17,6 @@ fagraphs_season_level.csv - Altered Fangraphs data
 
 
 predicted_SP_ERA - Data used in Reds Hackathon Visualizatoins FINAL Code.R
+
+
+Syracuse Analytics Reds Hackathon Slides.pdf - Presentation Slides
